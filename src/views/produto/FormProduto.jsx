@@ -12,7 +12,7 @@ export default function FormProduto() {
 
                 <Container textAlign='justified' >
 
-                    <h2> <span style={{ color: 'darkgray' }}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+                    <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
 
                     <Divider />
 
@@ -25,54 +25,55 @@ export default function FormProduto() {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Nome'
-                                    maxLength="100"
+                                    label='Título'
+                                    maxLength="100" placeholder="Informe o título do produto"
                                 />
 
                                 <Form.Input
                                     required
                                     fluid
-                                    label='CPF'>
-                                    <InputMask
-                                        required
-                                        mask="999.999.999-99"
-                                    />
+                                    label='Código do Produto' placeholder="Informe o código do produto">
                                 </Form.Input>
 
                             </Form.Group>
 
+                            <div>
+                            
+                                <Form.TextArea
+                                    fluid
+                                    label='Descrição'
+                                    placeholder="Informe a descrição do produto">
+                                </Form.TextArea>
+                            
+                            </div>
+                            
                             <Form.Group>
 
                                 <Form.Input
                                     fluid
-                                    label='Fone Celular'
+                                    required
+                                    label='Valor Unitário'
                                     width={6}>
-                                    <InputMask
-                                        mask="(99) 9999.9999"
-                                    />
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
-                                    label='Fone Fixo'
-                                    width={6}>
-                                    <InputMask
-                                        mask="(99) 9999.9999"
-                                    />
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    label='Data Nascimento'
+                                    label='Tempo de Entrega Mínimo em Minutos'
                                     width={6}
                                 >
                                     <InputMask
-                                        mask="99/99/9999"
-                                        maskChar={null}
-                                        placeholder="Ex: 20/03/1985"
+                                        placeholder="30"
                                     />
                                 </Form.Input>
-
+                                <Form.Input
+                                    fluid
+                                    label='Tempo de Entrega Máximo em Minutos'
+                                    width={6}
+                                >
+                                    <InputMask
+                                        placeholder="40"
+                                    />
+                                </Form.Input>
                             </Form.Group>
 
                         </Form>
@@ -88,7 +89,7 @@ export default function FormProduto() {
                                 color='orange'
                             >
                                 <Icon name='reply' />
-                                Voltar
+                                Listar
                             </Button>
 
                             <Button
