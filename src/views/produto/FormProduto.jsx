@@ -1,13 +1,39 @@
-import React from "react";
+import React, {useState} from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+import MenuSistema from "../../MenuSistema";
+import axios from "axios";
 
 export default function FormProduto() {
+    const [nome, setNome] = useState();
+    const [cpf, setCpf] = useState();
+    const [dataNascimento, setDataNascimento] = useState();
+    const [foneCelular, setFoneCelular] = useState();
+    const [foneFixo, setFoneFixo] = useState();
+
+    function salvar() {
+
+		let clienteRequest = {
+		     nome: nome,
+		     cpf: cpf,
+		     dataNascimento: dataNascimento,
+		     foneCelular: foneCelular,
+		     foneFixo: foneFixo
+		}
+	
+		axios.post("http://localhost:8082/api/cliente", clienteRequest)
+		.then((response) => {
+		     console.log('Cliente cadastrado com sucesso.')
+		})
+		.catch((error) => {
+		     console.log('Erro ao incluir o um cliente.')
+		})
+	}
 
     return (
 
         <div>
-
+            <MenuSistema />
             <div style={{ marginTop: '3%' }}>
 
                 <Container textAlign='justified' >
@@ -27,6 +53,7 @@ export default function FormProduto() {
                                     fluid
                                     label='Título'
                                     maxLength="100" placeholder="Informe o título do produto"
+                                    
                                 />
 
                                 <Form.Input
@@ -38,15 +65,15 @@ export default function FormProduto() {
                             </Form.Group>
 
                             <div>
-                            
+
                                 <Form.TextArea
                                     fluid
                                     label='Descrição'
                                     placeholder="Informe a descrição do produto">
                                 </Form.TextArea>
-                            
+
                             </div>
-                            
+
                             <Form.Group>
 
                                 <Form.Input
