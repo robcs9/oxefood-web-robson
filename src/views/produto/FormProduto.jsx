@@ -1,34 +1,36 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
 import axios from "axios";
 
 export default function FormProduto() {
-    const [nome, setNome] = useState();
-    const [cpf, setCpf] = useState();
-    const [dataNascimento, setDataNascimento] = useState();
-    const [foneCelular, setFoneCelular] = useState();
-    const [foneFixo, setFoneFixo] = useState();
+    const [titulo, setTitulo] = useState();
+    const [codigoProduto, setCodigoProduto] = useState();
+    const [descricao, setDescricao] = useState();
+    const [valorUnitario, setValorUnitario] = useState();
+    const [tempoEntregaMin, setTempoEntregaMin] = useState();
+    const [tempoEntregaMax, setTempoEntregaMax] = useState();
 
     function salvar() {
 
-		let clienteRequest = {
-		     nome: nome,
-		     cpf: cpf,
-		     dataNascimento: dataNascimento,
-		     foneCelular: foneCelular,
-		     foneFixo: foneFixo
-		}
-	
-		axios.post("http://localhost:8082/api/cliente", clienteRequest)
-		.then((response) => {
-		     console.log('Cliente cadastrado com sucesso.')
-		})
-		.catch((error) => {
-		     console.log('Erro ao incluir o um cliente.')
-		})
-	}
+        let produtoRequest = {
+            titulo: titulo,
+            codigoProduto: codigoProduto,
+            descricao: descricao,
+            valorUnitario: valorUnitario,
+            tempoEntregaMin: tempoEntregaMin,
+            tempoEntregaMax: tempoEntregaMax
+        }
+
+        axios.post("http://localhost:8082/api/produto", produtoRequest)
+            .then((response) => {
+                console.log('Produto cadastrado com sucesso.')
+            })
+            .catch((error) => {
+                console.log('Erro ao incluir um produto.')
+            })
+    }
 
     return (
 
@@ -53,13 +55,17 @@ export default function FormProduto() {
                                     fluid
                                     label='Título'
                                     maxLength="100" placeholder="Informe o título do produto"
-                                    
+                                    value={titulo}
+                                    onChange={(e) => setTitulo(e.target.value)}
                                 />
 
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Código do Produto' placeholder="Informe o código do produto">
+                                    label='Código do Produto' placeholder="Informe o código do produto"
+                                    value={codigoProduto}
+                                    onChange={(e) => setCodigoProduto(e.target.value)}
+                                >
                                 </Form.Input>
 
                             </Form.Group>
@@ -69,7 +75,10 @@ export default function FormProduto() {
                                 <Form.TextArea
                                     fluid
                                     label='Descrição'
-                                    placeholder="Informe a descrição do produto">
+                                    placeholder="Informe a descrição do produto"
+                                    value={descricao}
+                                    onChange={(e) => e.setDescricao(e.target.value)}
+                                >
                                 </Form.TextArea>
 
                             </div>
@@ -80,13 +89,18 @@ export default function FormProduto() {
                                     fluid
                                     required
                                     label='Valor Unitário'
-                                    width={6}>
+                                    width={6}
+                                    value={valorUnitario}
+                                    onChange={(e) => e.setValorUnitario(e.target.value)}
+                                    >
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
                                     label='Tempo de Entrega Mínimo em Minutos'
                                     width={6}
+                                    value={tempoEntregaMin}
+                                    onChange={(e) => e.setTempoEntregaMin(e.target.value)}
                                 >
                                     <InputMask
                                         placeholder="30"
@@ -96,6 +110,8 @@ export default function FormProduto() {
                                     fluid
                                     label='Tempo de Entrega Máximo em Minutos'
                                     width={6}
+                                    value={tempoEntregaMax}
+                                    onChange={(e) => e.setTempoEntregaMax(e.target.value)}
                                 >
                                     <InputMask
                                         placeholder="40"
@@ -126,6 +142,7 @@ export default function FormProduto() {
                                 labelPosition='left'
                                 color='blue'
                                 floated='right'
+                                onClick={() => salvar()}
                             >
                                 <Icon name='save' />
                                 Salvar

@@ -23,6 +23,15 @@ export default function FormEntregador() {
     const [complemento, setComplemento] = useState('');
     const [ativo, setAtivo] = useState('');
 
+    const estados = [
+        { key: 'pe', value: 'pe', text: 'PE' },
+        { key: 'ce', value: 'ce', text: 'CE' },
+    ]
+
+    /*let state = {}
+    let handleChange = (e, { value }) => this.setState({ value })
+    const { value } = this.state*/
+
     function salvar() {
 
         let entregadorRequest = {
@@ -141,9 +150,10 @@ export default function FormEntregador() {
                                     fluid
                                     required
                                     label='QTD Entregas Realizadas'
-                                    width={6}>
+                                    width={6}
                                     value={qtdEntregas}
                                     onChange={e => e.setQtdEntregas(e.target.value)}
+                                >
                                 </Form.Input>
 
                                 <Form.Input
@@ -159,11 +169,13 @@ export default function FormEntregador() {
                                 <Form.Input
                                     fluid
                                     label='Rua'
+                                    width={6}
                                     value={rua}
                                     onChange={e => e.setRua(e.target.value)}
                                 >
                                 </Form.Input>
                                 <Form.Input fluid label='Número'
+                                    width={6}
                                     value={numero}
                                     onChange={e => e.setNumero(e.target.value)}
                                 >
@@ -174,6 +186,7 @@ export default function FormEntregador() {
                                 <Form.Input
                                     fluid
                                     label='Bairro'
+                                    width={6}
                                     value={bairro}
                                     onChange={e => e.setBairro(e.target.value)}
                                 >
@@ -181,6 +194,7 @@ export default function FormEntregador() {
                                 <Form.Input
                                     fluid
                                     label='Cidade'
+                                    width={6}
                                     value={cidade}
                                     onChange={e => e.setCidade(e.target.value)}
                                 >
@@ -188,43 +202,49 @@ export default function FormEntregador() {
                                 <Form.Input
                                     fluid
                                     label='CEP'
+                                    width={6}
                                     value={cep}
                                     onChange={e => e.setCep(e.target.value)}
                                 >
                                 </Form.Input>
                             </Form.Group>
+
                             <Form.Group>
-                                {/*<Form.Select>
-                                    <Form.Select.option>test</Form.Select.option>
-    </Form.Select>*/}
-                                <select
-                                    name="UF"
+                                <Form.Select
                                     fluid
                                     label='UF'
+                                    options={estados}
+                                    placeholder='UF'
                                     value={estado}
                                     onChange={e => e.setEstado(e.target.value)}
                                 >
-                                    <option value="PE">PE</option>
-                                    <option value="RJ">RJ</option>
-                                    <option value="DF">DF</option>
-                                </select>
+
+                                </Form.Select>
                             </Form.Group>
+
                             <Form.Group>
                                 <Form.Input
-                                fluid
-                                label='Complemento'>
+                                    fluid
+                                    label='Complemento'
+                                    width={16}
+                                >
                                 </Form.Input>
                             </Form.Group>
-                            <label name="Ativo">
-                                <strong>Ativo: </strong>
-                                <Form.Group>
-                                    <Form.Radio label='Sim'>
-                                    </Form.Radio>
-                                    <Form.Radio label='Não'>
-                                    </Form.Radio>
-                                </Form.Group>
-                            </label>
 
+                            <Form.Group inline>
+                                <label>Ativo</label>
+                                <Form.Radio
+                                    label='Sim'
+                                    value='sim'
+                                    /*checked={value === 'sim'}*/
+
+                                />
+                                <Form.Radio
+                                    label='Não'
+                                    value='não'
+                                    /*checked={value === 'não'}*/
+                                />
+                            </Form.Group>
                         </Form>
 
                         <div style={{ marginTop: '4%' }}>
