@@ -77,7 +77,7 @@ export default function FormProduto() {
                                     label='Descrição'
                                     placeholder="Informe a descrição do produto"
                                     value={descricao}
-                                    onChange={(e) => e.setDescricao(e.target.value)}
+                                    onChange={(e) => setDescricao(e.target.value)}
                                 >
                                 </Form.TextArea>
 
@@ -91,7 +91,7 @@ export default function FormProduto() {
                                     label='Valor Unitário'
                                     width={6}
                                     value={valorUnitario}
-                                    onChange={(e) => e.setValorUnitario(e.target.value)}
+                                    onChange={(e) => setValorUnitario(e.target.value)}
                                     >
                                 </Form.Input>
 
@@ -100,7 +100,7 @@ export default function FormProduto() {
                                     label='Tempo de Entrega Mínimo em Minutos'
                                     width={6}
                                     value={tempoEntregaMin}
-                                    onChange={(e) => e.setTempoEntregaMin(e.target.value)}
+                                    onChange={(e) => setTempoEntregaMin(e.target.value)}
                                 >
                                     <InputMask
                                         placeholder="30"
@@ -111,7 +111,7 @@ export default function FormProduto() {
                                     label='Tempo de Entrega Máximo em Minutos'
                                     width={6}
                                     value={tempoEntregaMax}
-                                    onChange={(e) => e.setTempoEntregaMax(e.target.value)}
+                                    onChange={(e) => setTempoEntregaMax(e.target.value)}
                                 >
                                     <InputMask
                                         placeholder="40"

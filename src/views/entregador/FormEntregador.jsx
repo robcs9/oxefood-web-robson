@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputMask from 'react-input-mask';
-import { Button, Container, Divider, Form, GridColumn, Icon } from 'semantic-ui-react';
+import { Button, Container, Divider, Form, GridColumn, Icon, Radio } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
 import axios from "axios";
 
@@ -28,8 +28,8 @@ export default function FormEntregador() {
         { key: 'ce', value: 'ce', text: 'CE' },
     ]
 
-    /*let state = {}
-    let handleChange = (e, { value }) => this.setState({ value })
+    /*state = {}
+    handleChange = (e, { value }) => this.setState({ value })
     const { value } = this.state*/
 
     function salvar() {
@@ -87,7 +87,7 @@ export default function FormEntregador() {
                                     label='Nome'
                                     maxLength="100" placeholder="Informe o título do produto"
                                     value={nome}
-                                    onChange={e => e.setNome(e.target.value)}
+                                    onChange={e => setNome(e.target.value)}
                                 />
 
                                 <Form.Input
@@ -98,14 +98,14 @@ export default function FormEntregador() {
                                         required
                                         mask="999.999.999-99"
                                         value={cpf}
-                                        onChange={e => e.setCpf(e.target.value)}
+                                        onChange={e => setCpf(e.target.value)}
                                     />
                                 </Form.Input>
                                 <Form.Input
                                     fluid
                                     label='RG'
                                     value={rg}
-                                    onChange={e => e.setRg(e.target.value)}
+                                    onChange={e => setRg(e.target.value)}
                                 >
 
                                 </Form.Input>
@@ -122,7 +122,7 @@ export default function FormEntregador() {
                                         maskChar={null}
                                         placeholder="Ex: 20/03/1985"
                                         value={dataNascimento}
-                                        onChange={e => e.setDataNascimento(e.target.value)}
+                                        onChange={e => setDataNascimento(e.target.value)}
                                     />
                                 </Form.Input>
                                 <Form.Input
@@ -133,7 +133,7 @@ export default function FormEntregador() {
                                     <InputMask
                                         mask="(99) 9999.9999"
                                         value={foneCelular}
-                                        onChange={e => e.setFoneCelular(e.target.value)}
+                                        onChange={e => setFoneCelular(e.target.value)}
                                     />
                                 </Form.Input>
                                 <Form.Input
@@ -143,7 +143,7 @@ export default function FormEntregador() {
                                     <InputMask
                                         mask="(99) 9999.9999"
                                         value={foneFixo}
-                                        onChange={e => e.setFoneFixo(e.target.value)}
+                                        onChange={e => setFoneFixo(e.target.value)}
                                     />
                                 </Form.Input>
                                 <Form.Input
@@ -152,7 +152,7 @@ export default function FormEntregador() {
                                     label='QTD Entregas Realizadas'
                                     width={6}
                                     value={qtdEntregas}
-                                    onChange={e => e.setQtdEntregas(e.target.value)}
+                                    onChange={e => setQtdEntregas(e.target.value)}
                                 >
                                 </Form.Input>
 
@@ -161,7 +161,7 @@ export default function FormEntregador() {
                                     label='Valor Por Frete'
                                     width={6}
                                     value={valorFrete}
-                                    onChange={e => e.setValorFrete(e.target.value)}
+                                    onChange={e => setValorFrete(e.target.value)}
                                 >
                                 </Form.Input>
                             </Form.Group>
@@ -171,13 +171,13 @@ export default function FormEntregador() {
                                     label='Rua'
                                     width={6}
                                     value={rua}
-                                    onChange={e => e.setRua(e.target.value)}
+                                    onChange={e => setRua(e.target.value)}
                                 >
                                 </Form.Input>
                                 <Form.Input fluid label='Número'
                                     width={6}
                                     value={numero}
-                                    onChange={e => e.setNumero(e.target.value)}
+                                    onChange={e => setNumero(e.target.value)}
                                 >
 
                                 </Form.Input>
@@ -188,7 +188,7 @@ export default function FormEntregador() {
                                     label='Bairro'
                                     width={6}
                                     value={bairro}
-                                    onChange={e => e.setBairro(e.target.value)}
+                                    onChange={e => setBairro(e.target.value)}
                                 >
                                 </Form.Input>
                                 <Form.Input
@@ -196,7 +196,7 @@ export default function FormEntregador() {
                                     label='Cidade'
                                     width={6}
                                     value={cidade}
-                                    onChange={e => e.setCidade(e.target.value)}
+                                    onChange={e => setCidade(e.target.value)}
                                 >
                                 </Form.Input>
                                 <Form.Input
@@ -204,7 +204,7 @@ export default function FormEntregador() {
                                     label='CEP'
                                     width={6}
                                     value={cep}
-                                    onChange={e => e.setCep(e.target.value)}
+                                    onChange={e => setCep(e.target.value)}
                                 >
                                 </Form.Input>
                             </Form.Group>
@@ -216,7 +216,7 @@ export default function FormEntregador() {
                                     options={estados}
                                     placeholder='UF'
                                     value={estado}
-                                    onChange={e => e.setEstado(e.target.value)}
+                                    onChange={e => setEstado(e.target.value)}
                                 >
 
                                 </Form.Select>
@@ -227,6 +227,8 @@ export default function FormEntregador() {
                                     fluid
                                     label='Complemento'
                                     width={16}
+                                    value={complemento}
+                                    onChange={e => setComplemento(e.target.value)}
                                 >
                                 </Form.Input>
                             </Form.Group>
@@ -236,13 +238,14 @@ export default function FormEntregador() {
                                 <Form.Radio
                                     label='Sim'
                                     value='sim'
-                                    /*checked={value === 'sim'}*/
-
+                                    checked={ativo === 'sim'}
+                                    onChange={() => setAtivo('sim')}
                                 />
                                 <Form.Radio
                                     label='Não'
-                                    value='não'
-                                    /*checked={value === 'não'}*/
+                                    value='nao'
+                                    checked={ativo === 'nao'}
+                                    onChange={() => setAtivo('nao')}
                                 />
                             </Form.Group>
                         </Form>
