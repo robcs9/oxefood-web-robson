@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, GridColumn, Icon, Radio } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
@@ -26,6 +27,30 @@ export default function FormEntregador() {
     const estados = [
         { key: 'pe', value: 'pe', text: 'PE' },
         { key: 'ce', value: 'ce', text: 'CE' },
+        { key: 'pa', value: 'pa', text: 'PA' },
+        { key: 'al', value: 'al', text: 'AL' },
+        { key: 'ce', value: 'ce', text: 'SE' },
+        { key: 'ce', value: 'ce', text: 'PI' },
+        { key: 'ce', value: 'ce', text: 'BA' },
+        { key: 'ce', value: 'ce', text: 'MA' },
+        { key: 'ce', value: 'ce', text: 'TO' },
+        { key: 'ce', value: 'ce', text: 'AP' },
+        { key: 'ce', value: 'ce', text: 'PA' },
+        { key: 'ce', value: 'ce', text: 'RO' },
+        { key: 'ce', value: 'ce', text: 'AM' },
+        { key: 'ce', value: 'ce', text: 'AC' },
+        { key: 'ce', value: 'ce', text: 'RO' },
+        { key: 'ce', value: 'ce', text: 'MG' },
+        { key: 'ce', value: 'ce', text: 'GO' },
+        { key: 'ce', value: 'ce', text: 'MT' },
+        { key: 'ce', value: 'ce', text: 'ES' },
+        { key: 'ce', value: 'ce', text: 'RJ' },
+        { key: 'ce', value: 'ce', text: 'SP' },
+        { key: 'ce', value: 'ce', text: 'MS' },
+        { key: 'ce', value: 'ce', text: 'PR' },
+        { key: 'ce', value: 'ce', text: 'RS' },
+        { key: 'ce', value: 'ce', text: 'SC' },
+        
     ]
 
     /*state = {}
@@ -261,7 +286,7 @@ export default function FormEntregador() {
                                 color='orange'
                             >
                                 <Icon name='reply' />
-                                Voltar
+                                <Link to={'/list-entregador'}>Voltar</Link>
                             </Button>
 
                             <Button
