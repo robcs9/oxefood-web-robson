@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, GridColumn, Icon, Radio } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
@@ -7,6 +7,8 @@ import axios from "axios";
 
 export default function FormEntregador() {
 
+    const { state } = useLocation();
+    const [idEntregador, setIdEntregador] = useState();
     const [nome, setNome] = useState();
     const [cpf, setCpf] = useState();
     const [dataNascimento, setDataNascimento] = useState();
@@ -22,40 +24,72 @@ export default function FormEntregador() {
     const [cep, setCep] = useState('');
     const [estado, setEstado] = useState('');
     const [complemento, setComplemento] = useState('');
-    const [ativo, setAtivo] = useState('');
+    const [ativo, setAtivo] = useState();
 
     const estados = [
         { key: 'pe', value: 'pe', text: 'PE' },
         { key: 'ce', value: 'ce', text: 'CE' },
         { key: 'pa', value: 'pa', text: 'PA' },
         { key: 'al', value: 'al', text: 'AL' },
-        { key: 'ce', value: 'ce', text: 'SE' },
-        { key: 'ce', value: 'ce', text: 'PI' },
-        { key: 'ce', value: 'ce', text: 'BA' },
-        { key: 'ce', value: 'ce', text: 'MA' },
-        { key: 'ce', value: 'ce', text: 'TO' },
-        { key: 'ce', value: 'ce', text: 'AP' },
-        { key: 'ce', value: 'ce', text: 'PA' },
-        { key: 'ce', value: 'ce', text: 'RO' },
-        { key: 'ce', value: 'ce', text: 'AM' },
-        { key: 'ce', value: 'ce', text: 'AC' },
-        { key: 'ce', value: 'ce', text: 'RO' },
-        { key: 'ce', value: 'ce', text: 'MG' },
-        { key: 'ce', value: 'ce', text: 'GO' },
-        { key: 'ce', value: 'ce', text: 'MT' },
-        { key: 'ce', value: 'ce', text: 'ES' },
-        { key: 'ce', value: 'ce', text: 'RJ' },
-        { key: 'ce', value: 'ce', text: 'SP' },
-        { key: 'ce', value: 'ce', text: 'MS' },
-        { key: 'ce', value: 'ce', text: 'PR' },
-        { key: 'ce', value: 'ce', text: 'RS' },
-        { key: 'ce', value: 'ce', text: 'SC' },
-        
+        { key: 'se', value: 'se', text: 'SE' },
+        { key: 'pi', value: 'pi', text: 'PI' },
+        { key: 'ba', value: 'ba', text: 'BA' },
+        { key: 'ma', value: 'ma', text: 'MA' },
+        { key: 'to', value: 'to', text: 'TO' },
+        { key: 'ap', value: 'ap', text: 'AP' },
+        { key: 'pa', value: 'pa', text: 'PA' },
+        { key: 'ro', value: 'ro', text: 'RO' },
+        { key: 'am', value: 'am', text: 'AM' },
+        { key: 'ac', value: 'ac', text: 'AC' },
+        { key: 'ro', value: 'ro', text: 'RO' },
+        { key: 'mg', value: 'mg', text: 'MG' },
+        { key: 'go', value: 'go', text: 'GO' },
+        { key: 'mt', value: 'mt', text: 'MT' },
+        { key: 'es', value: 'es', text: 'ES' },
+        { key: 'rj', value: 'rj', text: 'RJ' },
+        { key: 'sp', value: 'sp', text: 'SP' },
+        { key: 'ms', value: 'ms', text: 'MS' },
+        { key: 'pr', value: 'pr', text: 'PR' },
+        { key: 'rs', value: 'rs', text: 'RS' },
+        { key: 'sc', value: 'sc', text: 'SC' },
+
     ]
 
-    /*state = {}
-    handleChange = (e, { value }) => this.setState({ value })
-    const { value } = this.state*/
+    useEffect(() => {
+
+        if (state != null && state.id != null) {
+            axios.get("http://localhost:8082/api/entregador/" + state.id)
+                .then((response) => {
+                    setIdEntregador(response.data.id)
+                    setNome(response.data.nome)
+                    setCpf(response.data.cpf)
+                    setDataNascimento(formatarData(response.data.dataNascimento))
+                    setFoneCelular(response.data.foneCelular)
+                    setFoneFixo(response.data.foneFixo)
+                    setRg(response.data.rg)
+                    setQtdEntregas(response.data.qtdEntregas)
+                    setValorFrete(response.data.valorFrete)
+                    setRua(response.data.rua)
+                    setNumero(response.data.numero)
+                    setBairro(response.data.bairro)
+                    setCidade(response.data.cidade)
+                    setCep(response.data.cep)
+                    setEstado(response.data.estado)
+                    setComplemento(response.data.complemento)
+                    setAtivo(response.data.ativo)
+                })
+        }
+    }, [state])
+
+    function formatarData(dataParam) {
+
+        if (dataParam === null || dataParam === '' || dataParam === undefined) {
+            return ''
+        }
+
+        let arrayData = dataParam.split('-');
+        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+    }
 
     function salvar() {
 
@@ -76,16 +110,17 @@ export default function FormEntregador() {
             estado: estado,
             complemento: complemento,
             ativo: ativo
-
         }
 
-        axios.post("http://localhost:8082/api/entregador", entregadorRequest)
-            .then((response) => {
-                console.log('Entregador cadastrado com sucesso.')
-            })
-            .catch((error) => {
-                console.log('Erro ao incluir um entregador.')
-            })
+        if (idEntregador != null) { //Alteração:
+            axios.put("http://localhost:8082/api/entregador/" + idEntregador, entregadorRequest)
+                .then((response) => { console.log('Entregador alterado com sucesso.') })
+                .catch((error) => { console.log('Erro ao alter um entregador.') })
+        } else { //Cadastro:
+            axios.post("http://localhost:8082/api/entregador", entregadorRequest)
+                .then((response) => { console.log('Entregador cadastrado com sucesso.') })
+                .catch((error) => { console.log('Erro ao incluir o entregador.') })
+        }
     }
 
     return (
@@ -96,7 +131,12 @@ export default function FormEntregador() {
 
                 <Container textAlign='justified' >
 
-                    <h2> <span style={{ color: 'darkgray' }}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+                    {idEntregador === undefined &&
+                        <h2> <span style={{ color: 'darkgray' }}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+                    }
+                    {idEntregador !== undefined &&
+                        <h2> <span style={{ color: 'darkgray' }}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+                    }
 
                     <Divider />
 
@@ -263,14 +303,14 @@ export default function FormEntregador() {
                                 <Form.Radio
                                     label='Sim'
                                     value='sim'
-                                    checked={ativo === 'sim'}
-                                    onChange={() => setAtivo('sim')}
+                                    checked={ativo == true}
+                                    onChange={() => setAtivo(true)}
                                 />
                                 <Form.Radio
                                     label='Não'
                                     value='nao'
-                                    checked={ativo === 'nao'}
-                                    onChange={() => setAtivo('nao')}
+                                    checked={ativo == false}
+                                    onChange={() => setAtivo(false)}
                                 />
                             </Form.Group>
                         </Form>

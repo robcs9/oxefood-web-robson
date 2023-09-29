@@ -35,7 +35,7 @@ export default function ListEntregador() {
 
                 <Container textAlign='justified' >
 
-                    <h2> Cliente </h2>
+                    <h2> Entregador </h2>
                     <Divider />
 
                     <div style={{ marginTop: '4%' }}>
@@ -76,14 +76,25 @@ export default function ListEntregador() {
 
                             <Table.Body>
 
-                                {lista.map(cliente => (
+                                {lista.map(entregador => (
 
-                                    <Table.Row key={cliente.id}>
-                                        <Table.Cell>{cliente.nome}</Table.Cell>
-                                        <Table.Cell>{cliente.cpf}</Table.Cell>
-                                        <Table.Cell>{formatarData(cliente.dataNascimento)}</Table.Cell>
-                                        <Table.Cell>{cliente.foneCelular}</Table.Cell>
-                                        <Table.Cell>{cliente.foneFixo}</Table.Cell>
+                                    <Table.Row key={entregador.id}>
+                                        <Table.Cell>{entregador.nome}</Table.Cell>
+                                        <Table.Cell>{entregador.cpf}</Table.Cell>
+                                        <Table.Cell>{entregador.rg}</Table.Cell>
+                                        <Table.Cell>{formatarData(entregador.dataNascimento)}</Table.Cell>
+                                        <Table.Cell>{entregador.foneCelular}</Table.Cell>
+                                        <Table.Cell>{entregador.foneFixo}</Table.Cell>
+                                        <Table.Cell>{entregador.qtdEntregas}</Table.Cell>
+                                        <Table.Cell>{entregador.valorFrete}</Table.Cell>
+                                        <Table.Cell>{entregador.rua}</Table.Cell>
+                                        <Table.Cell>{entregador.numero}</Table.Cell>
+                                        <Table.Cell>{entregador.bairro}</Table.Cell>
+                                        <Table.Cell>{entregador.cidade}</Table.Cell>
+                                        <Table.Cell>{entregador.cep}</Table.Cell>
+                                        <Table.Cell>{entregador.cidade}</Table.Cell>
+                                        <Table.Cell>{entregador.complemento}</Table.Cell>
+                                        <Table.Cell>{entregador.ativo ? "Sim" : "Não"}</Table.Cell>
                                         <Table.Cell textAlign='center'>
 
                                             <Button
@@ -92,7 +103,7 @@ export default function ListEntregador() {
                                                 color='green'
                                                 title='Clique aqui para editar os dados deste entregador'
                                                 icon>
-                                                <Icon name='edit' />
+                                                <Link to="/form-entregador" state={{ id: entregador.id }} style={{ color: 'green' }}> <Icon name='edit' /> </Link>
                                             </Button> &nbsp;
                                             <Button
                                                 inverted
