@@ -62,13 +62,13 @@ export default function ListEntregador() {
                                     <Table.HeaderCell>Fone Fixo</Table.HeaderCell>
                                     <Table.HeaderCell>QTD Entregas Realizadas</Table.HeaderCell>
                                     <Table.HeaderCell>Valor Por Frete</Table.HeaderCell>
-                                    <Table.HeaderCell>Rua</Table.HeaderCell>
+                                    {/*<Table.HeaderCell>Rua</Table.HeaderCell>
                                     <Table.HeaderCell>Número</Table.HeaderCell>
                                     <Table.HeaderCell>Bairro</Table.HeaderCell>
                                     <Table.HeaderCell>Cidade</Table.HeaderCell>
                                     <Table.HeaderCell>CEP</Table.HeaderCell>
                                     <Table.HeaderCell>UF</Table.HeaderCell>
-                                    <Table.HeaderCell>Complemento</Table.HeaderCell>
+    <Table.HeaderCell>Complemento</Table.HeaderCell>*/}
                                     <Table.HeaderCell>Ativo</Table.HeaderCell>
                                     <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
                                 </Table.Row>
@@ -87,13 +87,13 @@ export default function ListEntregador() {
                                         <Table.Cell>{entregador.foneFixo}</Table.Cell>
                                         <Table.Cell>{entregador.qtdEntregas}</Table.Cell>
                                         <Table.Cell>{entregador.valorFrete}</Table.Cell>
-                                        <Table.Cell>{entregador.rua}</Table.Cell>
+                                        {/*<Table.Cell>{entregador.rua}</Table.Cell>
                                         <Table.Cell>{entregador.numero}</Table.Cell>
                                         <Table.Cell>{entregador.bairro}</Table.Cell>
                                         <Table.Cell>{entregador.cidade}</Table.Cell>
                                         <Table.Cell>{entregador.cep}</Table.Cell>
                                         <Table.Cell>{entregador.cidade}</Table.Cell>
-                                        <Table.Cell>{entregador.complemento}</Table.Cell>
+                                <Table.Cell>{entregador.complemento}</Table.Cell>*/}
                                         <Table.Cell>{entregador.ativo ? "Sim" : "Não"}</Table.Cell>
                                         <Table.Cell textAlign='center'>
 
