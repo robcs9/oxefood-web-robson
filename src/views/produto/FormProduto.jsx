@@ -27,7 +27,7 @@ export default function FormProduto() {
                     setDescricao(response.data.descricao)
                     setValorUnitario(response.data.valorUnitario)
                     setTempoEntregaMin(response.data.tempoEntregaMin)
-                    setTempoEntregaMax(response.data.tempoEntregaMa)
+                    setTempoEntregaMax(response.data.tempoEntregaMax)
                 })
         }
     }, [state])
@@ -136,23 +136,21 @@ export default function FormProduto() {
                                     fluid
                                     label='Tempo de Entrega Mínimo em Minutos'
                                     width={6}
+                                    placeholder="30"
                                     value={tempoEntregaMin}
                                     onChange={(e) => setTempoEntregaMin(e.target.value)}
                                 >
-                                    <InputMask
-                                        placeholder="30"
-                                    />
+                                    
                                 </Form.Input>
                                 <Form.Input
                                     fluid
                                     label='Tempo de Entrega Máximo em Minutos'
                                     width={6}
+                                    placeholder="40"
                                     value={tempoEntregaMax}
                                     onChange={(e) => setTempoEntregaMax(e.target.value)}
                                 >
-                                    <InputMask
-                                        placeholder="40"
-                                    />
+                                    
                                 </Form.Input>
                             </Form.Group>
 
