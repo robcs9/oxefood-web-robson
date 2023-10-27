@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import { Button, Container, Divider, Icon, Table, Modal, Header } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
-export default function ListProduto() {
+export default function ListFornecedor() {
 
     const [lista, setLista] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [idRemover, setIdRemover] = useState();
+
 
     useEffect(() => {
         carregarLista();
@@ -16,7 +17,7 @@ export default function ListProduto() {
 
     function carregarLista() {
 
-        axios.get("http://localhost:8082/api/produto")
+        axios.get("http://localhost:8082/api/fornecedor")
             .then((response) => {
                 setLista(response.data)
             })
@@ -29,21 +30,23 @@ export default function ListProduto() {
 
     async function remover() {
 
-        await axios.delete('http://localhost:8082/api/produto/' + idRemover)
+        await axios.delete('http://localhost:8082/api/fornecedor/' + idRemover)
+        .then((response) => {
+  
+            console.log('Fornecedor removido com sucesso.')
+  
+            axios.get("http://localhost:8082/api/fornecedor")
             .then((response) => {
-
-                console.log('Produto removido com sucesso.')
-
-                axios.get("http://localhost:8082/api/produto")
-                    .then((response) => {
-                        setLista(response.data)
-                    })
+                setLista(response.data)
             })
-            .catch((error) => {
-                console.log('Erro ao remover um produto.')
-            })
+        })
+        .catch((error) => {
+            console.log('Erro ao remover um fornecedor.')
+        })
         setOpenModal(false)
     }
+ 
+
 
     function formatarData(dataParam) {
 
@@ -61,7 +64,7 @@ export default function ListProduto() {
 
                 <Container textAlign='justified' >
 
-                    <h2> Produto </h2>
+                    <h2> Fornecedor </h2>
                     <Divider />
 
                     <div style={{ marginTop: '4%' }}>
@@ -72,7 +75,7 @@ export default function ListProduto() {
                             icon='clipboard outline'
                             floated='right'
                             as={Link}
-                            to='/form-produto'
+                            to='/form-fornecedor'
                         />
                         <br /><br /><br />
 
@@ -80,45 +83,44 @@ export default function ListProduto() {
 
                             <Table.Header>
                                 <Table.Row>
-
-                                    <Table.HeaderCell>Titulo</Table.HeaderCell>
-                                    <Table.HeaderCell>Código Produto</Table.HeaderCell>
-                                    <Table.HeaderCell>Descrição</Table.HeaderCell>
-                                    <Table.HeaderCell>Valor Unitário</Table.HeaderCell>
-                                    <Table.HeaderCell>Tempo Entrega Min</Table.HeaderCell>
-                                    <Table.HeaderCell>Tempo Entrega Max</Table.HeaderCell>
+                                    <Table.HeaderCell>Nome</Table.HeaderCell>
+                                    <Table.HeaderCell>Endereço</Table.HeaderCell>
+                                    <Table.HeaderCell>Data Fundação</Table.HeaderCell>
+                                    <Table.HeaderCell>Valor de Mercado</Table.HeaderCell>
+                                    <Table.HeaderCell>Página Web</Table.HeaderCell>
+                                    <Table.HeaderCell>Contato do Vendedor</Table.HeaderCell>
                                     <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
 
                             <Table.Body>
 
-                                {lista.map(produto => (
+                                {lista.map(fornecedor => (
 
-                                    <Table.Row key={produto.id}>
-                                        <Table.Cell>{produto.titulo}</Table.Cell>
-                                        <Table.Cell>{produto.codigoProduto}</Table.Cell>
-                                        <Table.Cell>{produto.descricao}</Table.Cell>
-                                        <Table.Cell>{produto.valorUnitario}</Table.Cell>
-                                        <Table.Cell>{produto.tempoEntregaMin}</Table.Cell>
-                                        <Table.Cell>{produto.tempoEntregaMax}</Table.Cell>
+                                    <Table.Row key={fornecedor.id}>
+                                        <Table.Cell>{fornecedor.nome}</Table.Cell>
+                                        <Table.Cell>{fornecedor.endereco}</Table.Cell>
+                                        <Table.Cell>{formatarData(fornecedor.dataFundacao)}</Table.Cell>
+                                        <Table.Cell>{fornecedor.valorMercado}</Table.Cell>
+                                        <Table.Cell>{fornecedor.paginaWeb}</Table.Cell>
+                                        <Table.Cell>{fornecedor.contatoVendedor}</Table.Cell>
                                         <Table.Cell textAlign='center'>
 
                                             <Button
                                                 inverted
                                                 circular
                                                 color='green'
-                                                title='Clique aqui para editar os dados deste produto'
+                                                title='Clique aqui para editar os dados deste fornecedor'
                                                 icon>
-                                                <Link to="/form-produto" state={{ id: produto.id }} style={{ color: 'green' }}> <Icon name='edit' /> </Link>
+                                                <Link to="/form-fornecedor" state={{ id: fornecedor.id }} style={{ color: 'green' }}> <Icon name='edit' /> </Link>
                                             </Button> &nbsp;
                                             <Button
                                                 inverted
                                                 circular
                                                 color='red'
-                                                title='Clique aqui para remover este produto'
+                                                title='Clique aqui para remover este fornecedor'
                                                 icon
-                                                onClick={e => confirmaRemover(produto.id)}
+                                                onClick={e => confirmaRemover(fornecedor.id)}
                                             >
                                                 <Icon name='trash' />
                                             </Button>
@@ -151,6 +153,7 @@ export default function ListProduto() {
                     </Button>
                 </Modal.Actions>
             </Modal>
+
         </div>
     )
 }
