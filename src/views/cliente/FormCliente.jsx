@@ -37,8 +37,7 @@ export default function FormCliente() {
             return ''
         }
 
-        let arrayData = dataParam.split('-');
-        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+        return dataParam
     }
 
     function salvar() {
@@ -54,7 +53,8 @@ export default function FormCliente() {
         if (idCliente != null) { //Alteração:
             axios.put("http://localhost:8082/api/cliente/" + idCliente, clienteRequest)
                 .then((response) => { notifySuccess('Cliente alterado com sucesso.') })
-                .catch((error) => { notifyError('Erro ao alter um cliente.') })
+                //.catch((error) => { notifyError('Erro ao alterar um cliente.') })
+                .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage) })
         } else { //Cadastro:
             axios.post("http://localhost:8082/api/cliente", clienteRequest)
                 .then((response) => { notifySuccess('Cliente cadastrado com sucesso.') })

@@ -4,6 +4,7 @@ import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 import axios from "axios";
+import {mensagemErro, notifyError, notifySuccess } from '../../views/util/Util';
 
 export default function FormFornecedor() {
 
@@ -37,9 +38,7 @@ export default function FormFornecedor() {
         if (dataParam === null || dataParam === '' || dataParam === undefined) {
             return ''
         }
-
-        let arrayData = dataParam.split('-');
-        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+        return dataParam
     }
 
     function salvar() {
@@ -55,12 +54,12 @@ export default function FormFornecedor() {
 
         if (idFornecedor != null) { //Alteração:
             axios.put("http://localhost:8082/api/fornecedor/" + idFornecedor, fornecedorRequest)
-                .then((response) => { console.log('Fornecedor alterado com sucesso.') })
-                .catch((error) => { console.log('Erro ao alterar um fornecedor.') })
+                .then((response) => { notifySuccess('Fornecedor alterado com sucesso.') })
+                .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage)  })
         } else { //Cadastro:
             axios.post("http://localhost:8082/api/fornecedor", fornecedorRequest)
-                .then((response) => { console.log('Fornecedor cadastrado com sucesso.') })
-                .catch((error) => { console.log('Erro ao incluir o fornecedor.') })
+                .then((response) => { notifySuccess('Fornecedor cadastrado com sucesso.') })
+                .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage) })
         }
     }
 

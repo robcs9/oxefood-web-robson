@@ -4,6 +4,7 @@ import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, GridColumn, Icon, Radio } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
 import axios from "axios";
+import {mensagemErro, notifyError, notifySuccess } from '../../views/util/Util';
 
 export default function FormEntregador() {
 
@@ -87,8 +88,7 @@ export default function FormEntregador() {
             return ''
         }
 
-        let arrayData = dataParam.split('-');
-        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+        return dataParam
     }
 
     function salvar() {
@@ -114,12 +114,12 @@ export default function FormEntregador() {
 
         if (idEntregador != null) { //Alteração:
             axios.put("http://localhost:8082/api/entregador/" + idEntregador, entregadorRequest)
-                .then((response) => { console.log('Entregador alterado com sucesso.') })
-                .catch((error) => { console.log('Erro ao alter um entregador.') })
+                .then((response) => { notifySuccess('Entregador alterado com sucesso.') })
+                .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage)  })
         } else { //Cadastro:
             axios.post("http://localhost:8082/api/entregador", entregadorRequest)
-                .then((response) => { console.log('Entregador cadastrado com sucesso.') })
-                .catch((error) => { console.log('Erro ao incluir o entregador.') })
+                .then((response) => { notifySuccess('Entregador cadastrado com sucesso.') })
+                .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage) })
         }
     }
 

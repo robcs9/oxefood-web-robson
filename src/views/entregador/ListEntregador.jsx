@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Icon, Table, Modal, Header } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
+import {mensagemErro, notifyError, notifySuccess } from '../../views/util/Util';
 
 export default function ListEntregador() {
 
@@ -32,7 +33,7 @@ export default function ListEntregador() {
         await axios.delete('http://localhost:8082/api/entregador/' + idRemover)
             .then((response) => {
 
-                console.log('Entregador removido com sucesso.')
+                notifySuccess('Entregador removido com sucesso.')
 
                 axios.get("http://localhost:8082/api/entregador")
                     .then((response) => {
@@ -40,7 +41,8 @@ export default function ListEntregador() {
                     })
             })
             .catch((error) => {
-                console.log('Erro ao remover um entregador.')
+                //console.log('Erro ao remover um entregador.')
+                notifyError(error.response.data.errors[0].defaultMessage) 
             })
         setOpenModal(false)
     }
@@ -51,8 +53,7 @@ export default function ListEntregador() {
             return ''
         }
 
-        let arrayData = dataParam.split('-');
-        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+        return dataParam
     }
     return (
         <div>

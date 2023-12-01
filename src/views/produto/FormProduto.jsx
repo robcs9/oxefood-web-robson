@@ -4,6 +4,7 @@ import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
 import axios from "axios";
+import {mensagemErro, notifyError, notifySuccess } from '../../views/util/Util';
 
 export default function FormProduto() {
 
@@ -32,16 +33,6 @@ export default function FormProduto() {
         }
     }, [state])
 
-    /*function formatarData(dataParam) {
-
-        if (dataParam === null || dataParam === '' || dataParam === undefined) {
-            return ''
-        }
-
-        let arrayData = dataParam.split('-');
-        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
-    }*/
-
     function salvar() {
 
         let produtoRequest = {
@@ -55,12 +46,12 @@ export default function FormProduto() {
 
         if (idProduto != null) { //Alteração:
             axios.put("http://localhost:8082/api/produto/" + idProduto, produtoRequest)
-                .then((response) => { console.log('Produto alterado com sucesso.') })
-                .catch((error) => { console.log('Erro ao alter um produto.') })
+                .then((response) => { notifySuccess('Produto alterado com sucesso.') })
+                .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage) })
         } else { //Cadastro:
             axios.post("http://localhost:8082/api/produto", produtoRequest)
-                .then((response) => { console.log('Produto cadastrado com sucesso.') })
-                .catch((error) => { console.log('Erro ao incluir o produto.') })
+                .then((response) => { notifySuccess('Produto cadastrado com sucesso.') })
+                .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage)  })
         }
     }
 

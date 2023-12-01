@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Icon, Table, Modal, Header } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
+import {mensagemErro, notifyError, notifySuccess } from '../../views/util/Util';
 
 export default function ListFornecedor() {
 
@@ -33,7 +34,7 @@ export default function ListFornecedor() {
         await axios.delete('http://localhost:8082/api/fornecedor/' + idRemover)
         .then((response) => {
   
-            console.log('Fornecedor removido com sucesso.')
+            notifySuccess('Fornecedor removido com sucesso.')
   
             axios.get("http://localhost:8082/api/fornecedor")
             .then((response) => {
@@ -41,7 +42,7 @@ export default function ListFornecedor() {
             })
         })
         .catch((error) => {
-            console.log('Erro ao remover um fornecedor.')
+            notifyError(error.response.data.errors[0].defaultMessage) 
         })
         setOpenModal(false)
     }
@@ -53,9 +54,8 @@ export default function ListFornecedor() {
         if (dataParam === null || dataParam === '' || dataParam === undefined) {
             return ''
         }
-
-        let arrayData = dataParam.split('-');
-        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+        
+        return dataParam
     }
     return (
         <div>
