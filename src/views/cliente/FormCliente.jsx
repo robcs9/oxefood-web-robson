@@ -15,6 +15,7 @@ export default function FormCliente() {
     const [dataNascimento, setDataNascimento] = useState();
     const [foneCelular, setFoneCelular] = useState();
     const [foneFixo, setFoneFixo] = useState();
+    //const [enderecos, setEnderecos] = useState();
 
     useEffect(() => {
         
@@ -27,6 +28,7 @@ export default function FormCliente() {
                     setDataNascimento(formatarData(response.data.dataNascimento))
                     setFoneCelular(response.data.foneCelular)
                     setFoneFixo(response.data.foneFixo)
+                    //setEnderecos(response.data.enderecos)
                 })
         }
     }, [state])
@@ -48,6 +50,7 @@ export default function FormCliente() {
             dataNascimento: dataNascimento,
             foneCelular: foneCelular,
             foneFixo: foneFixo
+            //campos do endereço do cliente
         }
 
         if (idCliente != null) { //Alteração:
@@ -55,10 +58,12 @@ export default function FormCliente() {
                 .then((response) => { notifySuccess('Cliente alterado com sucesso.') })
                 //.catch((error) => { notifyError('Erro ao alterar um cliente.') })
                 .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage) })
+            // requisicao para alterar endereço do cliente
         } else { //Cadastro:
             axios.post("http://localhost:8082/api/cliente", clienteRequest)
                 .then((response) => { notifySuccess('Cliente cadastrado com sucesso.') })
                 .catch((error) => { notifyError(error.response.data.errors[0].defaultMessage) })
+            // requisicao para salvar um (ou mais?) endereço(s) do cliente
         }
     }
 
